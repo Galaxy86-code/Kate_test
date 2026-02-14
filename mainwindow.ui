@@ -19,7 +19,7 @@
      <rect>
       <x>120</x>
       <y>80</y>
-      <width>160</width>
+      <width>201</width>
       <height>166</height>
      </rect>
     </property>
@@ -69,7 +69,7 @@
      <item>
       <widget class="QLabel" name="label_slider">
        <property name="text">
-        <string>0</string>
+        <string>индекс курсора (номер канала) = 0</string>
        </property>
       </widget>
      </item>

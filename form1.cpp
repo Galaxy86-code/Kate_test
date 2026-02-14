@@ -119,12 +119,14 @@ void Form1::showGraph(int16_t v_sl)
     heatmap->data()->setRange(QCPRange(0, NUM_SAMPLES_x), QCPRange(0, NUM_SAMPLES_z));
 
     cP->xAxis->setRange(0, NUM_SAMPLES_x);
-    cP->xAxis->setAutoTickStep(false);
-    cP->xAxis->setTickStep(1.0);
+    cP->xAxis->setAutoTickStep(true);
+    //cP->xAxis->setAutoTickStep(false);
+    //cP->xAxis->setTickStep(1.0);
 
     cP->yAxis->setRange(0, NUM_SAMPLES_z);
-    cP->yAxis->setAutoTickStep(false);
-    cP->yAxis->setTickStep(1.0);
+    cP->yAxis->setAutoTickStep(true);
+    //cP->yAxis->setAutoTickStep(false);
+    //cP->yAxis->setTickStep(1.0);
 
     // Заполняем данными
     for (int x = 0; x < nx; ++x)

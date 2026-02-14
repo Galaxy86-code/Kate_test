@@ -61,19 +61,19 @@ void MainWindow::on_pushButton_clicked()
                 for(int i = 0; i < NUM_SAMPLES_z; ++i)
                 {
                     array1.clear();
-                    array1.append(FileBin->read(sizeof(int16_t)*8*2));
-                    memcpy(&Part0[i],array1,sizeof(int16_t)*8*2);
+                    array1.append(FileBin->read(sizeof(int16_t)*NUM_SAMPLES_x*NUM_SAMPLES_y));
+                    memcpy(&Part0[i],array1,sizeof(int16_t)*NUM_SAMPLES_x*NUM_SAMPLES_y);
 
-                    rd_byte_from_file += sizeof(int16_t)*8*2;
+                    rd_byte_from_file += sizeof(int16_t)*NUM_SAMPLES_x*NUM_SAMPLES_y;
                 }
 
                 for (int i = 0; i < NUM_SAMPLES_z; ++i)
                 {
                     array1.clear();
-                    array1.append(FileBin->read(sizeof(int16_t)*8*2));
-                    memcpy(&Part1[i],array1,sizeof(int16_t)*8*2);
+                    array1.append(FileBin->read(sizeof(int16_t)*NUM_SAMPLES_x*NUM_SAMPLES_y));
+                    memcpy(&Part1[i],array1,sizeof(int16_t)*NUM_SAMPLES_x*NUM_SAMPLES_y);
 
-                    rd_byte_from_file += sizeof(int16_t)*8*2;
+                    rd_byte_from_file += sizeof(int16_t)*NUM_SAMPLES_x*NUM_SAMPLES_y;
                 }
 
                 break;//
@@ -111,7 +111,7 @@ void MainWindow::on_pushButton_clicked()
 
 void MainWindow::on_horizontalSlider_valueChanged(int value)
 {
-    ui->label_slider->setText(QString::number(value));
+    ui->label_slider->setText("индекс курсора (номер канала) = " + QString::number(value));
     emit sendValueSlider(value);
 }
 
