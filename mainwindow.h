@@ -5,10 +5,7 @@
 #include <QFileDialog>
 #include <QMessageBox>
 #include "form1.h"
-
-#define NUM_SAMPLES_z 5
-#define NUM_SAMPLES_y 2
-#define NUM_SAMPLES_x 8
+#include "common.h"
 
 typedef struct
 {
@@ -36,6 +33,10 @@ private slots:
 
     void on_horizontalSlider_valueChanged(int value);
 
+    void Slot_get_x(int);
+    void Slot_get_sample(int);
+    void Slot_get_A(int);
+
 private:
     Ui::MainWindow *ui;
 
@@ -56,11 +57,13 @@ private:
     int16_t Part0[NUM_SAMPLES_z][NUM_SAMPLES_y][NUM_SAMPLES_x];
     int16_t Part1[NUM_SAMPLES_z][NUM_SAMPLES_y][NUM_SAMPLES_x];
 
-    int16_t A[NUM_SAMPLES_z][NUM_SAMPLES_y][NUM_SAMPLES_x];
+    int32_t A[NUM_SAMPLES_z][NUM_SAMPLES_y][NUM_SAMPLES_x];
+
+    void showGraph(void);
 signals:
     void sendValueSlider(int);
     //void Signal_sendA(int16_t[NUM_SAMPLES_y][NUM_SAMPLES_x]);
-    void Signal_sendA(int16_t *);
+    void Signal_sendA(int32_t *);
 
 };
 

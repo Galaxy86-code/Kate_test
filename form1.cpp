@@ -9,11 +9,12 @@ Form1::Form1(QWidget *parent) :
     ui->setupUi(this);
 
     v_sl = 0;
+    max_A = 0;
 
     cP = new QCustomPlot();
     cP->resize(80, 60);
     ui->verticalLayout_2->addWidget(cP);
-    //setLayout(ui->verticalLayout_2);
+    setLayout(ui->verticalLayout_2);
 
     //cP->xAxis->setLabel("X");
     //cP->yAxis->setLabel("Y");
@@ -68,10 +69,9 @@ void Form1::onMouseMoveOverHeatmap(QMouseEvent *event)
     // Получаем значение в ячейке
     int cellValue = (int)(data->cell(ix, iy));
 
-    ui->label_x->setText("x=" + QString::number(ix));
-    ui->label_y->setText("y=" + QString::number(iy));
-    ui->label_v->setText("A=" + QString::number(cellValue));
-    ui->label_v_sl->setText("v_sl=" + QString::number(v_sl));
+    emit Signal_form1_sendx(ix);
+    emit Signal_form1_sendsamples(iy);
+    emit Signal_form1_sendA(cellValue);
 }
 
 void Form1::getValueSlider(int value)
@@ -79,10 +79,13 @@ void Form1::getValueSlider(int value)
     v_sl = value;
 
     showGraph(value);
+
+    setWindowTitle("B-scan viewer индекс курсора = " + QString::number(value));
 }
 
-void Form1::getA(int16_t *p)
+void Form1::getA(int32_t *p)
 {
+    max_A = 0;
     for(int i = 0; i < NUM_SAMPLES_z; ++i)
     {
         for(int j = 0; j < NUM_SAMPLES_y; ++j)
@@ -91,6 +94,11 @@ void Form1::getA(int16_t *p)
             {
                 B[i][j][k] = *p;
                 p++;
+
+                if(B[i][j][k] > max_A)
+                {
+                    max_A = B[i][j][k];
+                }
             }
         }
     }
@@ -134,9 +142,9 @@ void Form1::showGraph(int16_t v_sl)
     QCPColorScale *colorScale = new QCPColorScale(cP);
     cP->plotLayout()->addElement(0, 1, colorScale);
 
-    colorScale->setDataRange(QCPRange(0,7000));
+    colorScale->setDataRange(QCPRange(0,max_A));
 
-    //colorScale->axis()->setAutoTicks(false);
+    /*colorScale->axis()->setAutoTicks(false);
     colorScale->axis()->setAutoTickStep(false);
     colorScale->axis()->setTickStep(1000.0);
     colorScale->axis()->setAutoSubTicks(false);
@@ -153,7 +161,7 @@ void Form1::showGraph(int16_t v_sl)
     labels << "5000";  // подпись справа/сверху
     labels << "6000";  // подпись справа/сверху
     labels << "7000";  // подпись справа/сверху
-    colorScale->axis()->setTickVectorLabels(labels);
+    colorScale->axis()->setTickVectorLabels(labels);*/
 
     QCPColorGradient rainbowGradient;
     rainbowGradient.clearColorStops();

@@ -24,11 +24,12 @@ SOURCES += main.cpp\
 
 HEADERS  += mainwindow.h \
     form1.h \
-    qcustomplot.h
+    qcustomplot.h \
+    common.h
 FORMS    += mainwindow.ui \
     form1.ui
 
-INCLUDEPATH += C:\Qwt-6.1.4\include
+INCLUDEPATH += C:\Qwt-6.1.4\src
 #LIBS += -LC:\Qwt-6.1.4\lib -lqwtd
 
 INCLUDEPATH += $${QWT_PATH}/src

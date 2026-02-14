@@ -8,8 +8,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
     form1 = new Form1();
-    form1->setWindowTitle("B-scan viewer");
-    form1->show();
+    /*form1->setWindowTitle("B-scan viewer");
+    form1->show();*/
 
     FileBin = new QFile();
     ui->label->setText("Загружен файл: ---");
@@ -18,7 +18,11 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(this, SIGNAL(sendValueSlider(int)), form1, SLOT(getValueSlider(int)));
 
-    connect(this, SIGNAL(Signal_sendA(int16_t *)), form1, SLOT(getA(int16_t *)));
+    connect(this, SIGNAL(Signal_sendA(int32_t *)), form1, SLOT(getA(int32_t *)));
+
+    connect(form1, SIGNAL(Signal_form1_sendx(int)), this, SLOT(Slot_get_x(int)));
+    connect(form1, SIGNAL(Signal_form1_sendsamples(int)), this, SLOT(Slot_get_sample(int)));
+    connect(form1, SIGNAL(Signal_form1_sendA(int)), this, SLOT(Slot_get_A(int)));
 }
 
 MainWindow::~MainWindow()
@@ -91,7 +95,7 @@ void MainWindow::on_pushButton_clicked()
                 }
             }
 
-            int16_t *ptr = **A;
+            int32_t *ptr = **A;
             emit Signal_sendA(ptr);
 
             FileBin->close();
@@ -102,6 +106,8 @@ void MainWindow::on_pushButton_clicked()
                                   QMessageBox::Ok);
 
     delete FileDialog1;
+
+    showGraph();
 }
 
 
@@ -110,3 +116,32 @@ void MainWindow::on_horizontalSlider_valueChanged(int value)
     ui->label_slider->setText(QString::number(value));
     emit sendValueSlider(value);
 }
+
+void MainWindow::Slot_get_x(int x)
+{
+    ui->label_x->setText("x = " + QString::number(x));
+}
+
+void MainWindow::Slot_get_sample(int s)
+{
+    ui->label_sample->setText("sample = " + QString::number(s));
+}
+
+void MainWindow::Slot_get_A(int A)
+{
+    ui->label_A->setText("A = " + QString::number(A));
+}
+
+void MainWindow::showGraph(void)
+{
+    form1->setWindowTitle("B-scan viewer индекс курсора = 0");
+
+    QRect mainRect = this->frameGeometry();
+    int newX = mainRect.x() + mainRect.width() + 20;
+    int newY = mainRect.y();
+    form1->move(newX, newY);
+
+    form1->show();
+}
+
+

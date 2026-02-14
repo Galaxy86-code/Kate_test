@@ -6,10 +6,7 @@
 #include <qwt_plot_grid.h>
 #include <QLabel>
 #include "qcustomplot.h"
-
-#define NUM_SAMPLES_z 5
-#define NUM_SAMPLES_y 2
-#define NUM_SAMPLES_x 8
+#include "common.h"
 
 namespace Ui {
 class Form1;
@@ -28,14 +25,20 @@ private:
     QLabel *label;
     QCustomPlot *cP;
     int v_sl;
+    int max_A;
 
-    int16_t B[NUM_SAMPLES_z][NUM_SAMPLES_y][NUM_SAMPLES_x];
+    int32_t B[NUM_SAMPLES_z][NUM_SAMPLES_y][NUM_SAMPLES_x];
 
 public slots:
     void onMouseMoveOverHeatmap(QMouseEvent *event);
     void getValueSlider(int);
-    void getA(int16_t *p);
+    void getA(int32_t *p);
     void showGraph(int16_t);
+
+signals:
+    void Signal_form1_sendx(int);
+    void Signal_form1_sendsamples(int);
+    void Signal_form1_sendA(int);
 };
 
 #endif // FORM1_H
