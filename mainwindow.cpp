@@ -8,8 +8,6 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
     form1 = new Form1();
-    /*form1->setWindowTitle("B-scan viewer");
-    form1->show();*/
 
     FileBin = new QFile();
     ui->label->setText("Загружен файл: ---");

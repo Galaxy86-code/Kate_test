@@ -5,5 +5,4 @@
 #define NUM_SAMPLES_y 2
 #define NUM_SAMPLES_x 8
 
-
 #endif // COMMON_H
