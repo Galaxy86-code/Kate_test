@@ -1,4 +1,4 @@
-#-------------------------------------------------
+-------------------------------------------------
 #
 # Project created by QtCreator 2026-02-04T14:12:27
 #
@@ -30,8 +30,5 @@ FORMS    += mainwindow.ui \
     form1.ui
 
 INCLUDEPATH += C:\Qwt-6.1.4\src
-#LIBS += -LC:\Qwt-6.1.4\lib -lqwtd
-
-INCLUDEPATH += $${QWT_PATH}/src
 LIBS += -L$$PWD -llibqwt_static
 

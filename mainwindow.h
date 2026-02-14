@@ -7,14 +7,6 @@
 #include "form1.h"
 #include "common.h"
 
-typedef struct
-{
-    int16_t TX[64];//(X)
-    int16_t RX[64];//(Z)
-    int16_t Samples[8192];//(Y)
-} part;
-
-
 
 namespace Ui {
 class MainWindow;
@@ -30,7 +22,6 @@ public:
 
 private slots:
     void on_pushButton_clicked();
-
     void on_horizontalSlider_valueChanged(int value);
 
     void Slot_get_x(int);
@@ -47,24 +38,14 @@ private:
     QString PathName;
     QByteArray array1;
 
-    //part Part0;
-    //part Part1;
-
-    /*int16_t mxy0[3];
-    int16_t mxy1[3];
-    int16_t mxy2[3];*/
-
     int16_t Part0[NUM_SAMPLES_z][NUM_SAMPLES_y][NUM_SAMPLES_x];
     int16_t Part1[NUM_SAMPLES_z][NUM_SAMPLES_y][NUM_SAMPLES_x];
-
     int32_t A[NUM_SAMPLES_z][NUM_SAMPLES_y][NUM_SAMPLES_x];
 
     void showGraph(void);
 signals:
     void sendValueSlider(int);
-    //void Signal_sendA(int16_t[NUM_SAMPLES_y][NUM_SAMPLES_x]);
     void Signal_sendA(int32_t *);
-
 };
 
 #endif // MAINWINDOW_H
