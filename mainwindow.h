@@ -38,9 +38,9 @@ private:
     QString PathName;
     QByteArray array1;
 
-    int16_t Part0[NUM_SAMPLES_z][NUM_SAMPLES_y][NUM_SAMPLES_x];
-    int16_t Part1[NUM_SAMPLES_z][NUM_SAMPLES_y][NUM_SAMPLES_x];
-    int32_t A[NUM_SAMPLES_z][NUM_SAMPLES_y][NUM_SAMPLES_x];
+    static int16_t Part0[NUM_SAMPLES_z][NUM_SAMPLES_y][NUM_SAMPLES_x];
+    static int16_t Part1[NUM_SAMPLES_z][NUM_SAMPLES_y][NUM_SAMPLES_x];
+    static int32_t A[NUM_SAMPLES_z][NUM_SAMPLES_y][NUM_SAMPLES_x];
 
     void showGraph(void);
 signals:

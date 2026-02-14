@@ -1,6 +1,10 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+int16_t MainWindow::Part0[NUM_SAMPLES_z][NUM_SAMPLES_y][NUM_SAMPLES_x];
+int16_t MainWindow::Part1[NUM_SAMPLES_z][NUM_SAMPLES_y][NUM_SAMPLES_x];
+int32_t MainWindow::A[NUM_SAMPLES_z][NUM_SAMPLES_y][NUM_SAMPLES_x];
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
