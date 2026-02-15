@@ -108,8 +108,8 @@ void Form1::getA(int32_t *p)
 
 void Form1::showGraph(int16_t v_sl)
 {
-    //QCPColorMap *heatmap = new QCPColorMap(cP->xAxis, cP->yAxis);
-    //cP->addPlottable(heatmap);
+    cP->yAxis->setRangeReversed(true);
+
     QCPColorMap *heatmap = qobject_cast<QCPColorMap*>(cP->plottable(0));
 
     // Настраиваем размер данных
@@ -133,9 +133,7 @@ void Form1::showGraph(int16_t v_sl)
     {
         for (int y = 0; y < ny; ++y)
         {
-            //double v = x*100 + y * 1000;
             double value = B[y][v_sl][x];
-
             heatmap->data()->setCell(x, y, value);
         }
     }
