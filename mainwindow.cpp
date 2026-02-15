@@ -60,13 +60,31 @@ void MainWindow::on_pushButton_clicked()
             memset(&Part1,0,sizeof(Part1));
             memset(&A,0,sizeof(A));
 
+            //int x = NUM_SAMPLES_x;
+            //int y = NUM_SAMPLES_y;
+            //int z = NUM_SAMPLES_z;
+
+            //QVector<QVector<QVector<int16_t>>> Part0(z, QVector<QVector<int16_t>>(y, QVector<int16_t>(x, 0)));
+            //QVector<QVector<QVector<int16_t>>> Part1(z, QVector<QVector<int16_t>>(y, QVector<int16_t>(x, 0)));
+
             while(!(FileBin->atEnd()))
             {
+                //uint8_t MB, LB;
                 for(int i = 0; i < NUM_SAMPLES_z; ++i)
                 {
                     array1.clear();
                     array1.append(FileBin->read(sizeof(int16_t)*NUM_SAMPLES_x*NUM_SAMPLES_y));
                     memcpy(&Part0[i],array1,sizeof(int16_t)*NUM_SAMPLES_x*NUM_SAMPLES_y);
+
+                    /*for(int j = 0; j < NUM_SAMPLES_y; ++j)
+                    {
+                        for(int k = 0; k < NUM_SAMPLES_x; ++k)
+                        {
+                            MB = array1.at(NUM_SAMPLES_y*2*j + k*2);
+                            LB = array1.at(NUM_SAMPLES_y*2*j + k*2 + 1);
+                            Part0[i][j][k] = MB << 8 | (LB);
+                        }
+                    }*/
 
                     rd_byte_from_file += sizeof(int16_t)*NUM_SAMPLES_x*NUM_SAMPLES_y;
                 }
@@ -77,10 +95,20 @@ void MainWindow::on_pushButton_clicked()
                     array1.append(FileBin->read(sizeof(int16_t)*NUM_SAMPLES_x*NUM_SAMPLES_y));
                     memcpy(&Part1[i],array1,sizeof(int16_t)*NUM_SAMPLES_x*NUM_SAMPLES_y);
 
+                    /*for(int j = 0; j < NUM_SAMPLES_y; ++j)
+                    {
+                        for(int k = 0; k < NUM_SAMPLES_x; ++k)
+                        {
+                            MB = array1.at(NUM_SAMPLES_y*2*j + k*2);
+                            LB = array1.at(NUM_SAMPLES_y*2*j + k*2 + 1);
+                            Part1[i][j][k] = MB << 8 | (LB);
+                        }
+                    }*/
+
                     rd_byte_from_file += sizeof(int16_t)*NUM_SAMPLES_x*NUM_SAMPLES_y;
                 }
 
-                break;//
+                break;
             }
 
             int16_t A0, A1;
@@ -90,6 +118,16 @@ void MainWindow::on_pushButton_clicked()
                 {
                     for(int k = 0; k < NUM_SAMPLES_x; ++k)
                     {
+                        /*uint8_t a1 = (uint8_t)Part0[i][j][k];
+                        uint8_t a2 = (uint8_t)(Part0[i][j][k] >> 8);
+
+                        Part0[i][j][k] = (a1 << 8) | a2;
+
+                        uint8_t a3 = (uint8_t)Part1[i][j][k];
+                        uint8_t a4 = (uint8_t)(Part1[i][j][k] >> 8);
+
+                        Part1[i][j][k] = (a3 << 8) | a4;*/
+
                         A0 = Part0[i][j][k];
                         A1 = Part1[i][j][k];
                         A[i][j][k] = sqrt(pow(A0,2) + pow(A1,2));
